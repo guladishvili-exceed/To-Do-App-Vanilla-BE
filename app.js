@@ -21,19 +21,19 @@ app.get('/read',function(req,res){
 })
 
 app.get('/addNew',function(req,res){
-    let newArray = todoItems.push({todo:'Run',id:2})
+    todoItems.push({todo:'Run',id:2})
     res.send(todoItems)
 })
 
 app.get('/editObject',function(req,res){
-    let todoIndex = todoItems.findIndex((obj => obj.id == 1))
+    let todoIndex = todoItems.findIndex((obj => obj.id === 1))
     todoItems[todoIndex].todo = 'Code'
     res.send(todoItems)
 })
 
 app.get('/deleteObject',function(req,res){
-    let todoIndex = todoItems.findIndex((obj => obj.id == 1))
-    let deletedArr = todoItems.splice[todoIndex]
+    let todoIndex = todoItems.findIndex((obj => obj.id === 1))
+    todoItems.splice[todoIndex]
     res.send(todoItems)
 })
 
