@@ -3,7 +3,7 @@ let todoItems = [{
     id : 1
     },
     {
-    todo: 'Walk',
+    todo: 'Vibe',
     id : 2
     }]
 
