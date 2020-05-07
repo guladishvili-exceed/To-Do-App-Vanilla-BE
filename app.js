@@ -17,6 +17,6 @@ app.get('/random',function(req,res){
     res.send('hello from node random')
 })
 
-app.listen(12345,function(){
+app.listen(3000,function(){
     console.log('server started')
 })
