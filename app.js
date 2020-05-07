@@ -1,6 +1,10 @@
 let todoItems = [{
     todo: 'Walk',
     id : 1
+    },
+    {
+    todo: 'Walk',
+    id : 2
     }]
 
 const express = require('express')
@@ -29,7 +33,7 @@ app.get('/editObject',function(req,res){
 
 app.get('/deleteObject',function(req,res){
     let todoIndex = todoItems.findIndex((obj => obj.id == 1))
-    todoItems = todoItems.splice[todoIndex]
+    let deletedArr = todoItems.splice[todoIndex]
     res.send(todoItems)
 })
 
