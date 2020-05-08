@@ -1,42 +1,31 @@
-let todoItems = [{
-    todo: 'Walk',
-    id : 1
-    },
-    {
-    todo: 'Vibe',
-    id : 2
-    }]
+
 
 const express = require('express')
 let app = new express();
+let bodyParser = require('body-parser')
+
+app.set('view engine','ejs')
+app.use(bodyParser.urlencoded({extended: true}))
+let todo = ['Dance']
 
 app.get('/',function(req,res){
     
-    res.send('Welcome to my server -Roffybc')
+    res.render('home')
 })
 
 app.get('/read',function(req,res){
-    console.log('This is the page which read everything')
-    res.send(todoItems)
+    res.render('read',{read : todo})
 })
 
-app.get('/addNew',function(req,res){
-    todoItems.push({todo:'Run',id:2})
-    res.send(todoItems)
+app.post('/addNew',function(req,res){
+    const newTodo = req.body.newtodo;
+    todo.push(newTodo)
+    res.redirect('/read')
+    
 })
 
-app.get('/editObject',function(req,res){
-    let todoIndex = todoItems.findIndex((obj => obj.id === 1))
-    todoItems[todoIndex].todo = 'Code'
-    res.send(todoItems)
-})
 
-app.get('/deleteObject',function(req,res){
-    let todoIndex = todoItems.findIndex((obj => obj.id === 1))
-    todoItems.splice[todoIndex]
-    res.send(todoItems)
-})
 
-app.listen(3000,function(){
+app.listen(8080,function(){
     console.log('server started')
 })

@@ -1,0 +1,16 @@
+<h1>To do list Goes Here</h1>
+
+<% read.forEach(function(todo){ %>
+    <li><%= todo %></li>
+<%}); %>
+
+
+
+
+<form action='/addNew' method="POST">
+
+    <input type='text' name="newtodo" placeholder="Add new todo">
+    <button>Add</button>
+    <button onclick='removeItem'>Delete by id=1</button>
+
+</form>
