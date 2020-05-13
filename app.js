@@ -1,31 +1,37 @@
 
+let todoItems = [{
+    todo: 'Walk',
+    id : '1'
+    },
+    {
+    todo:'Dance',
+    id : '2'
+    }]
+
+console.log(todoItems.id)
 
 const express = require('express')
 let app = new express();
 let bodyParser = require('body-parser')
-
-app.set('view engine','ejs')
-app.use(bodyParser.urlencoded({extended: true}))
-let todo = ['Dance']
+app.use(bodyParser.json())
 
 app.get('/',function(req,res){
-    
-    res.render('home')
-})
-
-app.get('/read',function(req,res){
-    res.render('read',{read : todo})
+    console.log('Welcome to roffys server')
+    res.send(todoItems)
 })
 
 app.post('/addNew',function(req,res){
-    const newTodo = req.body.newtodo;
-    todo.push(newTodo)
-    res.redirect('/read')
+   console.log(req.body)
+   res.send('Post method is up!')
+})
+
+app.delete('/deleteObject',function(req,res){
+    let findItem = todoItems.findIndex(x => x.id === '2')
+    todoItems.splice(findItem)
+    res.send(todoItems)
     
 })
 
-
-
-app.listen(8080,function(){
-    console.log('server started')
+app.listen(3000,function(){
+    console.log('server is up')
 })
