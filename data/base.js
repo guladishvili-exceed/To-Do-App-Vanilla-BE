@@ -6,8 +6,9 @@ const Schema = mongoose.Schema;
 
 const todoSchema = new Schema({
     todo: {
-        type:String
-    },
+        type:String,
+        checked:true
+    }
     
     
 })
