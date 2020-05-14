@@ -1,30 +1,16 @@
-//Create
-let todoItems = [{
-    todo: 'Walk',
-    id : '0'
-    },
-    {
-    todo:'Dance',
-    id :'1'
-    },{
-    todo:'Code',
-    id : '2'
-    }]
-
-console.log(todoItems.id)
-
 
 const express = require('express')
 let app = new express();
 let bodyParser = require('body-parser')
 app.use(bodyParser.json())
+
+const Todo = require('../backend/data/base')
+
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/',{useNewUrlParser : true})
-mongoose.connection.once('open',function(){
-    console.log('success')
-}).on('error',function(error){
-    console.log('error is:',error)
-})
+mongoose.connect('mongodb://localhost/todobase')
+mongoose.Promise = global.Promise;
+
+
 //Read
 app.get('/',(req,res) => {
     console.log('Welcome to roffys server')
@@ -33,22 +19,26 @@ app.get('/',(req,res) => {
 
 //add new item
 app.post('/add/', (req, res) => {
-    todoItems.push(req.body);
-    res.send(todoItems);
+    Todo.create(req.body).then(todo =>{
+        res.send(todo)
+        });
   });
 
 //delete item
-app.post('/delete/:id',(req,res) => {
-    const findID = +req.params.id
-    res.send(todoItems.filter(item => item.id != findID))
-    
+app.delete('/delete/:id',(req,res) => {
+    Todo.findByIdAndRemove({_id: req.params.id}).then(todo => {
+        res.send(todo)
+    })    
 })
 
-//edit item 
-app.post('/edit/:id',(req,res) => {
-    const findID = +req.params.id
-    todoItems[findID] = req.body  
-    res.send(todoItems)
+//update item
+app.put('/edit/:id',(req,res) => {
+    Todo.findByIdAndUpdate({_id: req.params.id},req.body).then(() => {
+        Todo.findOne({_id: req.params.id}).then(todo => {
+            res.send(todo)
+        })
+    })
+
     
 })
 
