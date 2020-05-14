@@ -25,25 +25,24 @@ app.get('/',(req,res) => {
 })
 
 //add new item
-app.post('/addNew/:todo/ololo/:id', (req, res) => {
-    todoItems.push(req.params);
+app.post('/add/', (req, res) => {
+    todoItems.push(req.body);
     res.send(todoItems);
   });
 
-  //delete item
-app.post('/deleteItem/ololo/:id',(req,res) => {
+//delete item
+app.post('/delete/ololo/:id',(req,res) => {
     let findID =parseInt(req.params.id)
     let filteredTodo = todoItems.filter(item => item.id != findID)
-    console.log(filteredTodo)
     res.send(filteredTodo)
     
 })
 
-//Edit item 
-app.post('/editItem/ololo/:id',(req,res) => {
+//edit item 
+app.post('/edit/ololo/:id',(req,res) => {
     let findId = parseInt(req.params.id)
     let findIndex = todoItems.findIndex(item => item.id == findId)
-    todoItems[findIndex].todo = 'Jump'  
+    todoItems[findIndex] = req.body  
     res.send(todoItems)
     
 })
