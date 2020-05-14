@@ -8,9 +8,7 @@ const todoSchema = new Schema({
     todo: {
         type:String
     },
-    id: {
-        type:Number
-    },
+    
     
 })
 

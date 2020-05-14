@@ -17,6 +17,18 @@ app.get('/',(req,res) => {
     res.send(todoItems)
 })
 
+app.get('/get-data', (req,res)=>{
+    Todo.find({})
+    .exec((err,todo)=>{
+        if(err) {
+            console.log('Error retrieving todos')
+        } else {
+            res.json(todo)
+        }
+    })
+    
+})
+
 //add new item
 app.post('/add/', (req, res) => {
     Todo.create(req.body).then(todo =>{
