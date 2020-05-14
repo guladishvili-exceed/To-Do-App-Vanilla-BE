@@ -32,16 +32,15 @@ app.post('/add/', (req, res) => {
 
 //delete item
 app.post('/delete/ololo/:id',(req,res) => {
-    let findID =parseInt(req.params.id)
-    let filteredTodo = todoItems.filter(item => item.id != findID)
-    res.send(filteredTodo)
+    const findID = +req.params.id
+    res.send(todoItems.filter(item => item.id !== findID))
     
 })
 
 //edit item 
 app.post('/edit/ololo/:id',(req,res) => {
-    let findId = parseInt(req.params.id)
-    let findIndex = todoItems.findIndex(item => item.id == findId)
+    const findID = +req.params.id
+    let findIndex = todoItems.findIndex(item => item.id === findId)
     todoItems[findIndex] = req.body  
     res.send(todoItems)
     
