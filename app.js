@@ -13,11 +13,18 @@ let todoItems = [{
 
 console.log(todoItems.id)
 
+
 const express = require('express')
 let app = new express();
 let bodyParser = require('body-parser')
 app.use(bodyParser.json())
-
+const mongoose = require('mongoose')
+mongoose.connect('mongodb://localhost/',{useNewUrlParser : true})
+mongoose.connection.once('open',function(){
+    console.log('success')
+}).on('error',function(error){
+    console.log('error is:',error)
+})
 //Read
 app.get('/',(req,res) => {
     console.log('Welcome to roffys server')
@@ -31,14 +38,14 @@ app.post('/add/', (req, res) => {
   });
 
 //delete item
-app.post('/delete/ololo/:id',(req,res) => {
+app.post('/delete/:id',(req,res) => {
     const findID = +req.params.id
     res.send(todoItems.filter(item => item.id != findID))
     
 })
 
 //edit item 
-app.post('/edit/ololo/:id',(req,res) => {
+app.post('/edit/:id',(req,res) => {
     const findID = +req.params.id
     todoItems[findID] = req.body  
     res.send(todoItems)
