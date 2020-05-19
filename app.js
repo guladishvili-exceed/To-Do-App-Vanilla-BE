@@ -14,10 +14,6 @@ mongoose.Promise = global.Promise;
 //Read
 app.get('/',(req,res) => {
     console.log('Welcome to roffys server')
-    res.send(todoItems)
-})
-
-app.get('/get-data', (req,res)=>{
     Todo.find({})
     .exec((err,todo)=>{
         if(err) {
@@ -26,8 +22,8 @@ app.get('/get-data', (req,res)=>{
             res.json(todo)
         }
     })
-    
 })
+
 
 //add new item
 app.post('/add/', (req, res) => {
