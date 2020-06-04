@@ -4,12 +4,8 @@ const Schema = mongoose.Schema;
 //Creating todo schema and model 
 
 const todoSchema = new Schema({
-    todo: {
-        type:String,
-        checked:true
-    }
-    
-    
+    todo: String,
+    checked : Boolean
 })
 
 const Todo = mongoose.model('Todo',todoSchema);
