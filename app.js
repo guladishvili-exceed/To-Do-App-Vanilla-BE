@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const Todo = require('./data/base')
-const User =require('./registration/user')
+const User = require('./registration/user')
 const mongoose = require('mongoose');
 const app = new express();
 app.use(bodyParser.json())
@@ -36,8 +36,6 @@ app.get('/', (req, res) => {
 			}
 		})
 })
-
-
 //add new item
 app.post('/add/', (req, res) => {
 	const addTodo = new Todo({todo: req.body.todo, checked: false})
@@ -84,24 +82,24 @@ app.put('/checkEdit/', (req, res) => {
 
 //Add new user A.K.A Registration
 
-app.post('/addUser', (req,res) => {
-		const addUser = new User({username: req.body.username, password: req.body.password})
-		addUser.save().then(result => res.status(200).json(result)).catch((err) => console.log(err))
+app.post('/addUser', (req, res) => {
+	const addUser = new User({username: req.body.username, password: req.body.password})
+	addUser.save().then(result => res.status(200).json(result)).catch((err) => console.log(err))
 })
 
 //Log in A.K.A Sign Up
-app.post('/logIn',(req,res) => {
-User.findOne({ username: req.body.username,password: req.body.password}).then(result => {
-	if (result.username === req.body.username && result.password === req.body.password) {
-		res.status(200).send({
-			message:'Successful login'
-					})
-	} else {
-		res.status(404).send({
-			message:'Invalid Login'
-		})
-	}
-})
+app.post('/logIn', (req, res) => {
+	User.findOne({username: req.body.username, password: req.body.password}).then(result => {
+		if (result.username === req.body.username && result.password === req.body.password) {
+			res.status(200).send({
+				message: 'Successful login'
+			})
+		} else {
+			res.status(404).send({
+				message: 'Invalid Login'
+			})
+		}
+	})
 })
 
 app.listen(8080, function () {
