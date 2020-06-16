@@ -24,21 +24,20 @@ mongoose.Promise = global.Promise;
 app.use(cors())
 
 //Read
-app.get('/', (req, res) => {
+app.get('/:username', (req, res) => {
 	console.log('Welcome to roffys server')
-	Todo.find({})
+	Todo.find({'username' : req.params.username})
 		.exec((err, todo) => {
 			if (err) {
 				console.log('Error retrieving todos')
 			} else {
-				console.log('--------todo', todo);
 				res.json(todo)
 			}
 		})
 })
 //add new item
 app.post('/add/', (req, res) => {
-	const addTodo = new Todo({todo: req.body.todo, checked: false})
+	const addTodo = new Todo({username:req.body.username,todo: req.body.todo, checked: false})
 	addTodo.save().then(result => res.status(200).json(result)).catch((err) => console.log(err))
 });
 
@@ -101,6 +100,10 @@ app.post('/logIn', (req, res) => {
 		}
 	})
 })
+
+// Display Todo's For Specific User
+
+
 
 app.listen(8080, function () {
 	console.log('server is up')

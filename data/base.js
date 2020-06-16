@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 //Creating todo schema and model 
 
 const todoSchema = new Schema({
+    username:String,
     todo: String,
     checked: Boolean,
 })

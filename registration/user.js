@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 //Create new user and add it to database
 
 const UserSchema = new Schema({
-	username:{type: String, unique: 'That username is already taken'},
+	username:{type: String, unique: ('That username is already taken')},
 	password:String,
 })
 
